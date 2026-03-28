@@ -117,43 +117,109 @@ const Navbar = () => {
 							to="/"
 							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
 						>
-							<span className="text-xl">🏠</span>
-							<span className="font-medium">Home</span>
+							<span className="text-2xl">👜</span>
+							<span className="font-medium text-xs">For You</span>
 						</Link>
 						<Link
-							to="/collection?category=Women"
+							to="/collection?category=Fashion"
 							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
 						>
-							<span className="text-xl">👗</span>
-							<span className="font-medium">Fashion</span>
+							<span className="text-2xl">👕</span>
+							<span className="font-medium text-xs">Fashion</span>
 						</Link>
 						<Link
-							to="/collection?category=Men"
+							to="/collection?category=Mobiles"
 							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
 						>
-							<span className="text-xl">👔</span>
-							<span className="font-medium">Men</span>
+							<span className="text-2xl">�</span>
+							<span className="font-medium text-xs">Mobiles</span>
 						</Link>
 						<Link
-							to="/collection?category=Kids"
+							to="/collection?category=Beauty"
 							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
 						>
-							<span className="text-xl">👶</span>
-							<span className="font-medium">Kids</span>
+							<span className="text-2xl">💄</span>
+							<span className="font-medium text-xs">Beauty</span>
 						</Link>
 						<Link
-							to="/about"
+							to="/collection?category=Electronics"
 							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
 						>
-							<span className="text-xl">ℹ️</span>
-							<span className="font-medium">About</span>
+							<span className="text-2xl">�️</span>
+							<span className="font-medium text-xs">
+								Electronics
+							</span>
 						</Link>
 						<Link
-							to="/contact"
+							to="/collection?category=Home"
 							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
 						>
-							<span className="text-xl">📞</span>
-							<span className="font-medium">Contact</span>
+							<span className="text-2xl">🏠</span>
+							<span className="font-medium text-xs">Home</span>
+						</Link>
+						<Link
+							to="/collection?category=Appliances"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">⚡</span>
+							<span className="font-medium text-xs">
+								Appliances
+							</span>
+						</Link>
+						<Link
+							to="/collection?category=Toys, Baby & More"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">🧸</span>
+							<span className="font-medium text-xs">Toys</span>
+						</Link>
+						<Link
+							to="/collection?category=Food & Health"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">🍎</span>
+							<span className="font-medium text-xs">
+								Food & Health
+							</span>
+						</Link>
+						<Link
+							to="/collection?category=Auto Accessories"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">🚗</span>
+							<span className="font-medium text-xs">Auto</span>
+						</Link>
+						<Link
+							to="/collection?category=2 Wheelers"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">🏍️</span>
+							<span className="font-medium text-xs">
+								2 Wheeler
+							</span>
+						</Link>
+						<Link
+							to="/collection?category=Sports & Outdoors"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">⚽</span>
+							<span className="font-medium text-xs">Sports</span>
+						</Link>
+						<Link
+							to="/collection?category=Books & More"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">�</span>
+							<span className="font-medium text-xs">Books</span>
+						</Link>
+						<Link
+							to="/collection?category=Furniture"
+							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+						>
+							<span className="text-2xl">🛋️</span>
+							<span className="font-medium text-xs">
+								Furniture
+							</span>
 						</Link>
 					</div>
 				</div>
