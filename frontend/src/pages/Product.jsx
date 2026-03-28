@@ -6,7 +6,7 @@ import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
 	const { productId } = useParams();
-	const { products, currency, addToCart } = useContext(ShopContext);
+	const { products, currency, addToCart, navigate } = useContext(ShopContext);
 	const [productData, setProductData] = useState(false);
 	const [image, setImage] = useState("");
 	const [size, setSize] = useState("");
@@ -19,6 +19,15 @@ const Product = () => {
 			}
 		});
 	}, [productId, products]);
+
+	const handleBuyNow = () => {
+		if (!size) {
+			alert("Please select a size");
+			return;
+		}
+		addToCart(productData._id, size);
+		navigate("/place-order");
+	};
 
 	return productData ? (
 		<div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -84,6 +93,12 @@ const Product = () => {
 						className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
 					>
 						ADD TO CART
+					</button>
+					<button
+						onClick={handleBuyNow}
+						className="bg-blue-600 text-white px-8 py-3 text-sm active:bg-blue-700 ml-4"
+					>
+						BUY NOW
 					</button>
 					<hr className="mt-8 sm:4/5" />
 					<div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">

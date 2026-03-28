@@ -29,18 +29,19 @@ const Navbar = () => {
 			<div className="bg-white shadow-md sticky top-0 z-40">
 				<div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
 					{/* Header Top Section */}
-					<div className="flex items-center justify-between py-4 gap-4">
+					<div className="flex items-center justify-between py-3 gap-4">
 						{/* Logo */}
 						<Link
 							to="/"
 							className="flex items-center gap-2 flex-shrink-0"
 						>
-							<div className="bg-blue-600 px-4 py-2 rounded-lg font-bold text-xl text-white">
-								LICKHILL
+							<div className="bg-yellow-400 px-5 py-2.5 rounded-lg font-bold text-lg">
+								<span className="text-blue-600">L</span>
+								<span className="text-black">ICKHILL</span>
 							</div>
 						</Link>
 						{/* Search Bar */}
-						<div className="hidden md:flex flex-1">
+						<div className="hidden md:flex flex-1 mx-6">
 							<input
 								type="text"
 								value={searchInput}
@@ -65,23 +66,23 @@ const Navbar = () => {
 									}
 								}}
 								placeholder="Search for Products, Brands and More"
-								className="w-full px-4 py-2 border-2 border-blue-400 rounded-lg focus:outline-none focus:border-blue-600 bg-blue-50"
+								className="w-full px-5 py-2.5 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-600 bg-blue-50 text-sm"
 							/>
-						</div>{" "}
+						</div>
 						{/* Right Section */}
-						<div className="flex items-center gap-6">
+						<div className="flex items-center gap-8">
 							{/* Account */}
-							<div className="relative group">
+							<div className="relative group hidden sm:block">
 								<button
 									onClick={() =>
 										token
 											? setDropdownOpen(!dropdownOpen)
 											: navigate("/login")
 									}
-									className="flex items-center gap-1 text-gray-700 hover:text-blue-600 text-sm font-medium"
+									className="flex items-center gap-2 text-gray-700 hover:text-blue-600 text-sm font-medium"
 								>
 									<span>👤</span>
-									<span className="hidden sm:inline">
+									<span className="hidden md:inline">
 										{token ? "Account" : "Login"}
 									</span>
 								</button>
@@ -111,13 +112,13 @@ const Navbar = () => {
 
 							{/* Cart */}
 							<Link to="/cart" className="relative">
-								<div className="flex items-center gap-1">
-									<span className="text-2xl">🛒</span>
+								<div className="flex items-center gap-2">
+									<span className="text-xl">🛒</span>
 									<span className="hidden sm:inline text-sm font-medium">
 										Cart
 									</span>
 									{getCartCount() > 0 && (
-										<span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+										<span className="absolute -top-2 -right-3 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
 											{getCartCount()}
 										</span>
 									)}
@@ -135,111 +136,117 @@ const Navbar = () => {
 					</div>
 
 					{/* Category Navigation */}
-					<div className="hidden md:flex items-center justify-start gap-8 py-4 overflow-x-auto border-b">
+					<div className="hidden md:flex items-center justify-start gap-10 py-3 overflow-x-auto border-t border-gray-100">
 						<Link
 							to="/"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">👜</span>
+							<span className="text-xl">👜</span>
 							<span className="font-medium text-xs">For You</span>
 						</Link>
 						<Link
 							to="/collection?category=Fashion"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">👕</span>
+							<span className="text-xl">👕</span>
 							<span className="font-medium text-xs">Fashion</span>
 						</Link>
 						<Link
 							to="/collection?category=Mobiles"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">�</span>
+							<span className="text-xl">📱</span>
 							<span className="font-medium text-xs">Mobiles</span>
 						</Link>
 						<Link
 							to="/collection?category=Beauty"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">💄</span>
+							<span className="text-xl">💄</span>
 							<span className="font-medium text-xs">Beauty</span>
 						</Link>
 						<Link
 							to="/collection?category=Electronics"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">�️</span>
+							<span className="text-xl">💻</span>
 							<span className="font-medium text-xs">
 								Electronics
 							</span>
 						</Link>
 						<Link
 							to="/collection?category=Home"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">🏠</span>
+							<span className="text-xl">🏠</span>
 							<span className="font-medium text-xs">Home</span>
 						</Link>
 						<Link
 							to="/collection?category=Appliances"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">⚡</span>
+							<span className="text-xl">⚡</span>
 							<span className="font-medium text-xs">
 								Appliances
 							</span>
 						</Link>
 						<Link
 							to="/collection?category=Toys, Baby & More"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">🧸</span>
+							<span className="text-xl">🧸</span>
 							<span className="font-medium text-xs">Toys</span>
 						</Link>
 						<Link
 							to="/collection?category=Food & Health"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">🍎</span>
+							<span className="text-xl">🍎</span>
 							<span className="font-medium text-xs">
-								Food & Health
+								Food & H...
 							</span>
 						</Link>
 						<Link
 							to="/collection?category=Auto Accessories"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">🚗</span>
-							<span className="font-medium text-xs">Auto</span>
+							<span className="text-xl">🚗</span>
+							<span className="font-medium text-xs">
+								Auto Acc...
+							</span>
 						</Link>
 						<Link
 							to="/collection?category=2 Wheelers"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">🏍️</span>
+							<span className="text-xl">🏍️</span>
 							<span className="font-medium text-xs">
-								2 Wheeler
+								2 Wheele...
 							</span>
 						</Link>
 						<Link
 							to="/collection?category=Sports & Outdoors"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">⚽</span>
-							<span className="font-medium text-xs">Sports</span>
+							<span className="text-xl">⚽</span>
+							<span className="font-medium text-xs">
+								Sports & ...
+							</span>
 						</Link>
 						<Link
 							to="/collection?category=Books & More"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">�</span>
-							<span className="font-medium text-xs">Books</span>
+							<span className="text-xl">📚</span>
+							<span className="font-medium text-xs">
+								Books & ...
+							</span>
 						</Link>
 						<Link
 							to="/collection?category=Furniture"
-							className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap"
+							className="flex flex-col items-center gap-1.5 text-gray-700 hover:text-blue-600 text-xs whitespace-nowrap flex-shrink-0 transition"
 						>
-							<span className="text-2xl">🛋️</span>
+							<span className="text-xl">🛋️</span>
 							<span className="font-medium text-xs">
 								Furniture
 							</span>
