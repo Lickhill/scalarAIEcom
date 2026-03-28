@@ -62,9 +62,10 @@ const addProduct = async (req, res) => {
 const listProducts = async (req, res) => {
 	try {
 		const products = await prisma.product.findMany();
-		// Convert BigInt to string for JSON serialization
+		// Convert BigInt to string and map id to _id for frontend compatibility
 		const productsFormatted = products.map((product) => ({
 			...product,
+			_id: product.id,
 			date: product.date.toString(),
 		}));
 		res.json({ success: true, products: productsFormatted });
@@ -94,9 +95,10 @@ const singleProduct = async (req, res) => {
 		const product = await prisma.product.findUnique({
 			where: { id: productId },
 		});
-		// Convert BigInt to string for JSON serialization
+		// Convert BigInt to string and map id to _id for frontend compatibility
 		if (product) {
 			product.date = product.date.toString();
+			product._id = product.id;
 		}
 		res.json({ success: true, product });
 	} catch (error) {
