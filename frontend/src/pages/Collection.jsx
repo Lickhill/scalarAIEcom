@@ -151,6 +151,7 @@ const Collection = () => {
 							id={item._id}
 							price={item.price}
 							image={item.image}
+							stock={item.stock}
 						/>
 					))}
 				</div>

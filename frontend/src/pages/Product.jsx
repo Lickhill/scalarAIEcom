@@ -69,6 +69,24 @@ const Product = () => {
 					<p className="mt-5 text-3xl font-medium">
 						{currency} {productData.price}
 					</p>
+
+					{/* Stock Status */}
+					<div className="mt-3">
+						{productData.stock === 0 ? (
+							<p className="text-red-600 font-semibold text-lg">
+								Coming Soon
+							</p>
+						) : productData.stock < 10 ? (
+							<p className="text-orange-600 font-semibold">
+								Limited Stock Available
+							</p>
+						) : (
+							<p className="text-green-600 font-semibold">
+								In Stock
+							</p>
+						)}
+					</div>
+
 					<p className="mt-5 text-gray-500 md:w-4/5">
 						{productData.description}
 					</p>
@@ -90,13 +108,23 @@ const Product = () => {
 
 					<button
 						onClick={() => addToCart(productData._id, size)}
-						className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+						disabled={productData.stock === 0}
+						className={`px-8 py-3 text-sm active:bg-gray-700 ${
+							productData.stock === 0
+								? "bg-gray-400 text-gray-600 cursor-not-allowed"
+								: "bg-black text-white"
+						}`}
 					>
 						ADD TO CART
 					</button>
 					<button
 						onClick={handleBuyNow}
-						className="bg-blue-600 text-white px-8 py-3 text-sm active:bg-blue-700 ml-4"
+						disabled={productData.stock === 0}
+						className={`px-8 py-3 text-sm ml-4 active:bg-blue-700 ${
+							productData.stock === 0
+								? "bg-gray-400 text-gray-600 cursor-not-allowed"
+								: "bg-blue-600 text-white"
+						}`}
 					>
 						BUY NOW
 					</button>
