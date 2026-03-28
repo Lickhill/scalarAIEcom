@@ -1,30 +1,51 @@
-import React from 'react'
-import { assets } from '../assets/assets'
+import React from "react";
 
 const OurPolicy = () => {
-  return (
-    <div className='flex flex-col sm:flex-row justify-around gap-12 sm:gap-2 text-center py-20 text-xs sm:text-sm md:text-base text-gray-700 '>
+	return (
+		<div className="w-full py-12 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+				<div className="bg-blue-50 rounded-lg p-6 text-center hover:shadow-lg transition">
+					<div className="text-4xl mb-4">🚚</div>
+					<p className="font-bold text-lg text-gray-800 mb-2">
+						Free Shipping
+					</p>
+					<p className="text-sm text-gray-600">
+						On orders above ₹500
+					</p>
+				</div>
 
-    <div>
-        <img src={assets.exchange_icon} className='w-12 m-auto mb-5'  alt=''/>
-        <p className='font-semibold'>Easy Exchange Policy</p>
-        <p className='text-gray-400'>We offer hassle free exchange policy</p>
+				<div className="bg-green-50 rounded-lg p-6 text-center hover:shadow-lg transition">
+					<div className="text-4xl mb-4">↩️</div>
+					<p className="font-bold text-lg text-gray-800 mb-2">
+						Easy Returns
+					</p>
+					<p className="text-sm text-gray-600">
+						7 days return policy
+					</p>
+				</div>
 
-    </div>
-    <div>
-        <img src={assets.quality_icon} className='w-12 m-auto mb-5'  alt=''/>
-        <p className='font-semibold'>7 days Return Policy</p>
-        <p className='text-gray-400'>We provide 7 days free return policy</p>
+				<div className="bg-yellow-50 rounded-lg p-6 text-center hover:shadow-lg transition">
+					<div className="text-4xl mb-4">🔄</div>
+					<p className="font-bold text-lg text-gray-800 mb-2">
+						Easy Exchange
+					</p>
+					<p className="text-sm text-gray-600">
+						Hassle-free exchanges
+					</p>
+				</div>
 
-    </div>
-    <div>
-        <img src={assets.support_img} className='w-12 m-auto mb-5'  alt=''/>
-        <p className='font-semibold'>Best Customer Support</p>
-        <p className='text-gray-400'>We provide 24/7 customer support</p>
+				<div className="bg-red-50 rounded-lg p-6 text-center hover:shadow-lg transition">
+					<div className="text-4xl mb-4">💬</div>
+					<p className="font-bold text-lg text-gray-800 mb-2">
+						24/7 Support
+					</p>
+					<p className="text-sm text-gray-600">
+						Best customer service
+					</p>
+				</div>
+			</div>
+		</div>
+	);
+};
 
-    </div>
-    </div>
-  )
-}
-
-export default OurPolicy
+export default OurPolicy;
