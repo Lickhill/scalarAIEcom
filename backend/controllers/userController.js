@@ -104,4 +104,121 @@ const adminLogin = async (req, res) => {
 	}
 };
 
-export { loginUser, registerUser, adminLogin };
+// Add to wishlist
+const addToWishlist = async (req, res) => {
+	try {
+		const { userId, productId } = req.body;
+
+		const user = await prisma.user.findUnique({
+			where: { id: userId },
+		});
+
+		if (!user) {
+			return res.json({ success: false, message: "User not found" });
+		}
+
+		// Check if product already in wishlist
+		if (user.wishlist.includes(productId)) {
+			return res.json({
+				success: false,
+				message: "Product already in wishlist",
+			});
+		}
+
+		// Add to wishlist
+		const updatedUser = await prisma.user.update({
+			where: { id: userId },
+			data: {
+				wishlist: {
+					push: productId,
+				},
+			},
+		});
+
+		res.json({
+			success: true,
+			message: "Added to wishlist",
+			wishlist: updatedUser.wishlist,
+		});
+	} catch (error) {
+		console.log(error);
+		res.json({ success: false, message: error.message });
+	}
+};
+
+// Remove from wishlist
+const removeFromWishlist = async (req, res) => {
+	try {
+		const { userId, productId } = req.body;
+
+		const user = await prisma.user.findUnique({
+			where: { id: userId },
+		});
+
+		if (!user) {
+			return res.json({ success: false, message: "User not found" });
+		}
+
+		// Remove from wishlist
+		const updatedUser = await prisma.user.update({
+			where: { id: userId },
+			data: {
+				wishlist: user.wishlist.filter((id) => id !== productId),
+			},
+		});
+
+		res.json({
+			success: true,
+			message: "Removed from wishlist",
+			wishlist: updatedUser.wishlist,
+		});
+	} catch (error) {
+		console.log(error);
+		res.json({ success: false, message: error.message });
+	}
+};
+
+// Get wishlist
+const getWishlist = async (req, res) => {
+	try {
+		const { userId } = req.body;
+
+		const user = await prisma.user.findUnique({
+			where: { id: userId },
+		});
+
+		if (!user) {
+			return res.json({ success: false, message: "User not found" });
+		}
+
+		// Get wishlist products
+		const wishlistProducts = await prisma.product.findMany({
+			where: {
+				id: {
+					in: user.wishlist,
+				},
+			},
+		});
+
+		// Format products
+		const formattedProducts = wishlistProducts.map((product) => ({
+			...product,
+			_id: product.id,
+			date: product.date.toString(),
+		}));
+
+		res.json({ success: true, wishlist: formattedProducts });
+	} catch (error) {
+		console.log(error);
+		res.json({ success: false, message: error.message });
+	}
+};
+
+export {
+	loginUser,
+	registerUser,
+	adminLogin,
+	addToWishlist,
+	removeFromWishlist,
+	getWishlist,
+};

@@ -16,6 +16,7 @@ model User {
     email     String   @unique
     password  String
     cartData  Json     @default("{}")
+    wishlist  String[] @default([])
     orders    Order[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

@@ -3,6 +3,11 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartFilled } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartEmpty } from "@fortawesome/free-regular-svg-icons";
 
 const Product = () => {
 	const { productId } = useParams();
@@ -10,8 +15,12 @@ const Product = () => {
 	const [productData, setProductData] = useState(false);
 	const [image, setImage] = useState("");
 	const [size, setSize] = useState("");
+	const [isInWishlist, setIsInWishlist] = useState(false);
+	const [token, setToken] = useState("");
 
 	useEffect(() => {
+		const storedToken = localStorage.getItem("token");
+		setToken(storedToken);
 		products.forEach((item) => {
 			if (item._id === productId) {
 				setProductData(item);
@@ -19,6 +28,59 @@ const Product = () => {
 			}
 		});
 	}, [productId, products]);
+
+	const handleAddToWishlist = async () => {
+		try {
+			if (!token) {
+				toast.error("Please login to add to wishlist");
+				navigate("/login");
+				return;
+			}
+
+			const response = await axios.post(
+				`${import.meta.env.VITE_BACKEND_URL}/api/user/wishlist/add`,
+				{ productId },
+				{ headers: { token } },
+			);
+
+			if (response.data.success) {
+				setIsInWishlist(true);
+				toast.success("Added to wishlist");
+			} else if (
+				response.data.message === "Product already in wishlist"
+			) {
+				// Remove from wishlist
+				await handleRemoveFromWishlist();
+			} else {
+				toast.error(response.data.message);
+			}
+		} catch (error) {
+			toast.error(
+				error.response?.data?.message || "Error adding to wishlist",
+			);
+		}
+	};
+
+	const handleRemoveFromWishlist = async () => {
+		try {
+			const response = await axios.post(
+				`${import.meta.env.VITE_BACKEND_URL}/api/user/wishlist/remove`,
+				{ productId },
+				{ headers: { token } },
+			);
+
+			if (response.data.success) {
+				setIsInWishlist(false);
+				toast.success("Removed from wishlist");
+			} else {
+				toast.error(response.data.message);
+			}
+		} catch (error) {
+			toast.error(
+				error.response?.data?.message || "Error removing from wishlist",
+			);
+		}
+	};
 
 	const handleBuyNow = () => {
 		if (!size) {
@@ -127,6 +189,17 @@ const Product = () => {
 						}`}
 					>
 						BUY NOW
+					</button>
+					<button
+						onClick={handleAddToWishlist}
+						className="px-8 py-3 text-sm ml-4 bg-red-100 text-red-600 hover:bg-red-200 transition"
+						title="Add to wishlist"
+					>
+						<FontAwesomeIcon
+							icon={isInWishlist ? faHeartFilled : faHeartEmpty}
+							className="mr-2"
+						/>
+						{isInWishlist ? "In Wishlist" : "Add to Wishlist"}
 					</button>
 					<hr className="mt-8 sm:4/5" />
 					<div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">

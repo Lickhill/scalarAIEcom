@@ -93,6 +93,15 @@ const Navbar = () => {
 										</p>
 										<p
 											onClick={() => {
+												navigate("/wishlist");
+												setDropdownOpen(false);
+											}}
+											className="px-4 py-3 cursor-pointer hover:bg-gray-100 border-t"
+										>
+											Wishlist
+										</p>
+										<p
+											onClick={() => {
 												navigate("/orders");
 												setDropdownOpen(false);
 											}}
