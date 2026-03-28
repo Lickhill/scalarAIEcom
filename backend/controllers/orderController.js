@@ -1,5 +1,6 @@
 import prisma from "../config/db.js";
 import razorpay from "razorpay";
+import { sendOrderConfirmationEmail } from "../config/email.js";
 
 //global variables
 const currency = "INR";
@@ -62,6 +63,25 @@ const placeOrder = async (req, res) => {
 			where: { id: userId },
 			data: { cartData: {} },
 		});
+
+		// Parse address to get email
+		let addressData = address;
+		if (typeof addressData === "string") {
+			addressData = JSON.parse(addressData);
+		}
+
+		// Send order confirmation email
+		if (addressData.email) {
+			await sendOrderConfirmationEmail(addressData.email, {
+				orderId: newOrder.id,
+				items: itemsArray,
+				amount,
+				address: addressData,
+				paymentMethod: "COD",
+				status: "Order Placed",
+				date: newOrder.date,
+			});
+		}
 
 		res.json({ success: true, message: "Order Placed" });
 	} catch (error) {
@@ -159,6 +179,26 @@ const verifyRazorpay = async (req, res) => {
 				where: { id: userId },
 				data: { cartData: {} },
 			});
+
+			// Parse address to get email
+			let addressData = order.address;
+			if (typeof addressData === "string") {
+				addressData = JSON.parse(addressData);
+			}
+
+			// Send order confirmation email
+			if (addressData.email) {
+				await sendOrderConfirmationEmail(addressData.email, {
+					orderId: order.id,
+					items,
+					amount: order.amount,
+					address: addressData,
+					paymentMethod: "Razorpay",
+					status: "Order Placed",
+					date: order.date,
+				});
+			}
+
 			res.json({ success: true, message: "Payment Successful" });
 		} else {
 			res.json({ success: false, message: "Payment failed" });
