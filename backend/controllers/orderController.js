@@ -30,6 +30,34 @@ const placeOrder = async (req, res) => {
 			data: orderData,
 		});
 
+		// Decrement stock for each item in the order
+		let itemsArray = items;
+
+		// Parse items if it's a string
+		if (typeof itemsArray === "string") {
+			itemsArray = JSON.parse(itemsArray);
+		}
+
+		if (Array.isArray(itemsArray) && itemsArray.length > 0) {
+			for (const item of itemsArray) {
+				try {
+					await prisma.product.update({
+						where: { id: item._id },
+						data: {
+							stock: {
+								decrement: item.quantity,
+							},
+						},
+					});
+				} catch (updateError) {
+					console.error(
+						`Error updating stock for product ${item._id}:`,
+						updateError.message,
+					);
+				}
+			}
+		}
+
 		await prisma.user.update({
 			where: { id: userId },
 			data: { cartData: {} },
@@ -37,7 +65,7 @@ const placeOrder = async (req, res) => {
 
 		res.json({ success: true, message: "Order Placed" });
 	} catch (error) {
-		console.log(error);
+		console.error("PlaceOrder error:", error);
 		res.json({ success: false, message: error.message });
 	}
 };
@@ -89,10 +117,39 @@ const verifyRazorpay = async (req, res) => {
 
 		const orderInfo =
 			await razorpayInstance.orders.fetch(razorpay_order_id);
+
 		if (orderInfo.status === "paid") {
 			const order = await prisma.order.findUnique({
 				where: { id: orderInfo.receipt },
 			});
+
+			// Decrement stock for each item in the order
+			let items = order.items;
+
+			// Parse items if it's a string
+			if (typeof items === "string") {
+				items = JSON.parse(items);
+			}
+
+			if (Array.isArray(items) && items.length > 0) {
+				for (const item of items) {
+					try {
+						await prisma.product.update({
+							where: { id: item._id },
+							data: {
+								stock: {
+									decrement: item.quantity,
+								},
+							},
+						});
+					} catch (updateError) {
+						console.error(
+							`Error updating stock for product ${item._id}:`,
+							updateError.message,
+						);
+					}
+				}
+			}
 
 			await prisma.order.update({
 				where: { id: orderInfo.receipt },
@@ -107,7 +164,7 @@ const verifyRazorpay = async (req, res) => {
 			res.json({ success: false, message: "Payment failed" });
 		}
 	} catch (error) {
-		console.log(error);
+		console.error("VerifyRazorpay error:", error);
 		res.json({ success: false, message: error.message });
 	}
 };
