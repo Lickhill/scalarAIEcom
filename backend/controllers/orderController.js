@@ -90,6 +90,10 @@ const verifyRazorpay = async (req, res) => {
 		const orderInfo =
 			await razorpayInstance.orders.fetch(razorpay_order_id);
 		if (orderInfo.status === "paid") {
+			const order = await prisma.order.findUnique({
+				where: { id: orderInfo.receipt },
+			});
+
 			await prisma.order.update({
 				where: { id: orderInfo.receipt },
 				data: { payment: true },

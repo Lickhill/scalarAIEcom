@@ -26,7 +26,9 @@ const ProductItem = ({ id, image, name, price }) => {
 							alt={name}
 						/>
 					)}
-					<div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold">
+					<div
+						className={`absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold`}
+					>
 						20% OFF
 					</div>
 				</div>

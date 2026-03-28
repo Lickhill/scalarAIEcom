@@ -5,8 +5,10 @@ import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
 	const [visible, setVisible] = useState(false);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [searchInput, setSearchInput] = useState("");
 	const {
 		setShowSearch,
+		setSearch,
 		getCartCount,
 		navigate,
 		token,
@@ -34,17 +36,35 @@ const Navbar = () => {
 								LICKHILL
 							</div>
 						</Link>
-
 						{/* Search Bar */}
 						<div className="hidden md:flex flex-1 mx-6">
 							<input
 								type="text"
-								onClick={() => setShowSearch(true)}
+								value={searchInput}
+								onChange={(e) => setSearchInput(e.target.value)}
+								onKeyPress={(e) => {
+									if (
+										e.key === "Enter" &&
+										searchInput.trim()
+									) {
+										setSearch(searchInput);
+										setShowSearch(true);
+										navigate("/collection");
+										setSearchInput("");
+									}
+								}}
+								onClick={() => {
+									if (searchInput.trim()) {
+										setSearch(searchInput);
+										setShowSearch(true);
+										navigate("/collection");
+										setSearchInput("");
+									}
+								}}
 								placeholder="Search for Products, Brands and More"
 								className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:outline-none focus:border-blue-500"
 							/>
-						</div>
-
+						</div>{" "}
 						{/* Right Section */}
 						<div className="flex items-center gap-6">
 							{/* Account */}
