@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "buildCommand": "npm install && npm run build",
+    "buildCommand": "npm cache clean --force && npm install && npm run build",
     "env": {
         "NODE_ENV": "production"
     },
@@ -11,7 +11,8 @@
             "config": {
                 "includeFiles": [
                     "prisma/**",
-                    ".env.local"
+                    ".env.local",
+                    "node_modules/.prisma/**"
                 ]
             }
         }
