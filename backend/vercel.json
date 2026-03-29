@@ -1,12 +1,14 @@
 {
     "version": 2,
+    "buildCommand": "npx prisma generate",
     "builds": [
         {
             "src": "server.js",
             "use": "@vercel/node",
             "config": {
                 "includeFiles": [
-                    "dist/**"
+                    "dist/**",
+                    "node_modules/.prisma/**"
                 ]
             }
         }
