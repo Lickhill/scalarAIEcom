@@ -293,20 +293,6 @@ const Navbar = () => {
 						>
 							Collection
 						</NavLink>
-						<NavLink
-							onClick={() => setVisible(false)}
-							to="/about"
-							className="py-3 px-4 hover:bg-gray-100 rounded"
-						>
-							About
-						</NavLink>
-						<NavLink
-							onClick={() => setVisible(false)}
-							to="/contact"
-							className="py-3 px-4 hover:bg-gray-100 rounded"
-						>
-							Contact
-						</NavLink>
 					</div>
 				</div>
 			</div>

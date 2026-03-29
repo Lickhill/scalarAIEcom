@@ -46,8 +46,6 @@ const addProduct = async (req, res) => {
 			date: Date.now(),
 		};
 
-		console.log(productData);
-
 		const product = await prisma.product.create({
 			data: productData,
 		});

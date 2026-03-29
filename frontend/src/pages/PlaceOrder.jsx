@@ -38,7 +38,6 @@ const PlaceOrder = () => {
 	const [showConfirmation, setShowConfirmation] = useState(false);
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [orderItems, setOrderItems] = useState([]);
-	const [orderDetails, setOrderDetails] = useState(null);
 
 	const onChangeHandler = (event) => {
 		const name = event.target.name;
@@ -99,12 +98,6 @@ const PlaceOrder = () => {
 			}
 
 			setOrderItems(items);
-			setOrderDetails({
-				address: formData,
-				items: items,
-				amount: cartAmount + delivery_fee,
-				method: method,
-			});
 			setShowConfirmation(true);
 		} catch (error) {
 			console.log(error);
