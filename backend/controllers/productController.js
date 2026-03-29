@@ -13,6 +13,7 @@ const addProduct = async (req, res) => {
 			sizes,
 			bestseller,
 			stock,
+			specification,
 		} = req.body;
 
 		const image1 = req.files.image1 && req.files.image1[0];
@@ -43,6 +44,7 @@ const addProduct = async (req, res) => {
 			stock: Number(stock) || 0,
 			sizes: JSON.parse(sizes),
 			image: imagesUrl,
+			specification: specification || "",
 			date: Date.now(),
 		};
 
@@ -120,6 +122,7 @@ const updateProduct = async (req, res) => {
 			sizes,
 			bestseller,
 			stock,
+			specification,
 		} = req.body;
 
 		let imagesUrl = [];
@@ -154,6 +157,7 @@ const updateProduct = async (req, res) => {
 			bestseller: bestseller === "true" ? true : false,
 			stock: Number(stock) || 0,
 			sizes: JSON.parse(sizes),
+			specification: specification || "",
 		};
 
 		// Only update images if new ones were uploaded

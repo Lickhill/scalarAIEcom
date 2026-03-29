@@ -14,6 +14,7 @@ const Add = ({ token }) => {
 	const [description, setDescription] = useState("");
 	const [price, setPrice] = useState("");
 	const [stock, setStock] = useState("");
+	const [specification, setSpecification] = useState("");
 	const [category, setCategory] = useState("For You");
 	const [subCategory, setSubCategory] = useState("Standard");
 	const [bestseller, setBestSeller] = useState(false);
@@ -29,6 +30,7 @@ const Add = ({ token }) => {
 			formData.append("description", description);
 			formData.append("price", price);
 			formData.append("stock", stock);
+			formData.append("specification", specification);
 			formData.append("category", category);
 			formData.append("subcategory", subCategory);
 			formData.append("bestseller", bestseller);
@@ -57,6 +59,7 @@ const Add = ({ token }) => {
 				setImage4(false);
 				setPrice("");
 				setStock("");
+				setSpecification("");
 			} else {
 				toast.error(response.data.message);
 			}
@@ -165,8 +168,19 @@ const Add = ({ token }) => {
 					value={description}
 					className="w-full max-w-[500px] px-3 py-2"
 					type="text"
-					placeholder="Write content here"
+					placeholder="Write product description here"
 					required
+				/>
+			</div>
+
+			<div className="w-full">
+				<p className="mb-2">Product Specification</p>
+				<textarea
+					onChange={(e) => setSpecification(e.target.value)}
+					value={specification}
+					className="w-full max-w-[500px] px-3 py-2"
+					type="text"
+					placeholder="Enter product specifications (e.g., Material, Dimensions, Features, etc.)"
 				/>
 			</div>
 

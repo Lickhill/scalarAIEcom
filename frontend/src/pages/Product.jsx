@@ -152,6 +152,19 @@ const Product = () => {
 					<p className="mt-5 text-gray-500 md:w-4/5">
 						{productData.description}
 					</p>
+
+					{/* Specification Section */}
+					{productData.specification && (
+						<div className="mt-5 border-t pt-5">
+							<p className="font-semibold text-lg mb-3">
+								Specifications
+							</p>
+							<p className="text-gray-600 whitespace-pre-line">
+								{productData.specification}
+							</p>
+						</div>
+					)}
+
 					<div className="flex flex-col gap-4 my-8">
 						<p>Select Size</p>
 						<div className="flex gap-2">

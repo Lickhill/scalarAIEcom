@@ -6,7 +6,9 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -24,19 +26,20 @@ model User {
 }
 
 model Product {
-    id          String   @id @default(cuid())
-    name        String
-    description String
-    price       Int
-    image       String[]
-    category    String
-    subcategory String
-    sizes       String[]
-    bestseller  Boolean  @default(false)
-    stock       Int      @default(0)
-    date        BigInt
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    id            String   @id @default(cuid())
+    name          String
+    description   String
+    price         Int
+    image         String[]
+    category      String
+    subcategory   String
+    sizes         String[]
+    bestseller    Boolean  @default(false)
+    stock         Int      @default(0)
+    specification String   @default("")
+    date          BigInt
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
 
     @@map("products")
 }
