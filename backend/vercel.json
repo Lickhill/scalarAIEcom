@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "buildCommand": "npm install && node build.js",
     "builds": [
         {
             "src": "server.js",
