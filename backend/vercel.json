@@ -1,18 +1,25 @@
 {
     "version": 2,
+    "buildCommand": "npm install && npm run build",
+    "env": {
+        "NODE_ENV": "production"
+    },
     "builds": [
         {
-            "src": "server.js",
-            "use": "@vercel/node"
+            "src": "start.js",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": [
+                    "prisma/**",
+                    ".env.local"
+                ]
+            }
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "server.js"
+            "dest": "start.js"
         }
-    ],
-    "env": {
-        "NODE_ENV": "production"
-    }
+    ]
 }
