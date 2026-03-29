@@ -50,7 +50,7 @@ export const categories = [
 	},
 	{
 		id: 8,
-		name: "Toys & Baby",
+		name: "Toys, Baby & More",
 		icon: "🧸",
 		path: "/collection?category=Toys, Baby & More",
 		color: "text-green-600",
@@ -64,7 +64,7 @@ export const categories = [
 	},
 	{
 		id: 10,
-		name: "Auto",
+		name: "Auto Accessories",
 		icon: "🚗",
 		path: "/collection?category=Auto Accessories",
 		color: "text-blue-500",
@@ -78,14 +78,14 @@ export const categories = [
 	},
 	{
 		id: 12,
-		name: "Sports",
+		name: "Sports and Outdoors",
 		icon: "⚽",
 		path: "/collection?category=Sports & Outdoors",
 		color: "text-green-500",
 	},
 	{
 		id: 13,
-		name: "Books",
+		name: "Books & More",
 		icon: "📚",
 		path: "/collection?category=Books & More",
 		color: "text-amber-600",
