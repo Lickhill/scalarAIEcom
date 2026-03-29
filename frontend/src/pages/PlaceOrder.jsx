@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
-import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -44,37 +43,6 @@ const PlaceOrder = () => {
 		const value = event.target.value;
 
 		setFormData((data) => ({ ...data, [name]: value }));
-	};
-
-	const initPay = (order) => {
-		const options = {
-			key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-			amount: order.amount,
-			currency: order.currency,
-			name: "Order Payment",
-			description: "Order Payment",
-			order_id: order.id,
-			receipt: order.receipt,
-			handler: async (response) => {
-				console.log(response);
-				try {
-					const { data } = await axios.post(
-						backendUrl + "/api/orders/verifyRazorpay",
-						response,
-						{ headers: { token } },
-					);
-					if (data.success) {
-						navigate("/orders");
-						setCartItems({});
-					}
-				} catch (error) {
-					console.log(error);
-					toast.error(error);
-				}
-			},
-		};
-		const rzp = new window.Razorpay(options);
-		rzp.open();
 	};
 
 	const onSubmitHandler = async (event) => {
@@ -131,19 +99,6 @@ const PlaceOrder = () => {
 						}, 3000);
 					} else {
 						toast.error(response.data.message);
-					}
-					break;
-				}
-
-				case "razorpay": {
-					const responseRazorpay = await axios.post(
-						backendUrl + "/api/orders/razorpay",
-						orderData,
-						{ headers: { token } },
-					);
-					if (responseRazorpay.data.success) {
-						setShowConfirmation(false);
-						initPay(responseRazorpay.data.order);
 					}
 					break;
 				}
@@ -266,32 +221,6 @@ const PlaceOrder = () => {
 						<Title text1={"PAYMENT"} text2={"METHOD"} />
 						{/* payment method seletion */}
 						<div className="flex gap-3  flex-col lg:flex-row">
-							<div
-								onClick={() => setMethod("razorpay")}
-								className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-							>
-								<p
-									className={`min-w-3.5 h-3.5 border rounded-full ${method === "razorpay" ? "bg-green-400" : ""} `}
-								></p>
-								<img
-									className="h-5 mx-4"
-									src={assets.razorpay_logo}
-									alt=""
-								/>
-							</div>
-							<div
-								onClick={() => setMethod("stripe")}
-								className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-							>
-								<p
-									className={`min-w-3.5 h-3.5 border rounded-full ${method === "stripe" ? "bg-green-400" : ""} `}
-								></p>
-								<img
-									className="h-5 mx-4"
-									src={assets.stripe_logo}
-									alt=""
-								/>
-							</div>
 							<div
 								onClick={() => setMethod("cod")}
 								className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
@@ -418,12 +347,8 @@ const PlaceOrder = () => {
 						{/* Payment Method */}
 						<div className="border-t pt-4 mb-6">
 							<p className="text-gray-700">
-								<strong>Payment Method:</strong>{" "}
-								{method === "cod"
-									? "Cash on Delivery"
-									: method === "razorpay"
-										? "Razorpay"
-										: "Stripe"}
+								<strong>Payment Method:</strong> Cash on
+								Delivery
 							</p>
 						</div>
 
@@ -461,12 +386,8 @@ const PlaceOrder = () => {
 								{cartAmount + delivery_fee}
 							</p>
 							<p className="mb-2">
-								<strong>Payment Method:</strong>{" "}
-								{method === "cod"
-									? "Cash on Delivery"
-									: method === "razorpay"
-										? "Razorpay"
-										: "Stripe"}
+								<strong>Payment Method:</strong> Cash on
+								Delivery
 							</p>
 							<p className="mb-2">
 								<strong>Delivery To:</strong>
