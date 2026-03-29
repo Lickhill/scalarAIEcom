@@ -15,10 +15,13 @@ const PlaceOrder = () => {
 		cartItems,
 		setCartItems,
 		getCartAmount,
-		delivery_fee,
+		getDeliveryFee,
 		products,
 		currency,
 	} = useContext(ShopContext);
+
+	const cartAmount = getCartAmount();
+	const delivery_fee = getDeliveryFee(cartAmount);
 
 	const [formData, setFormData] = useState({
 		firstName: "",
@@ -99,7 +102,7 @@ const PlaceOrder = () => {
 			setOrderDetails({
 				address: formData,
 				items: items,
-				amount: getCartAmount() + delivery_fee,
+				amount: cartAmount + delivery_fee,
 				method: method,
 			});
 			setShowConfirmation(true);
@@ -114,7 +117,7 @@ const PlaceOrder = () => {
 			let orderData = {
 				address: formData,
 				items: orderItems,
-				amount: getCartAmount() + delivery_fee,
+				amount: cartAmount + delivery_fee,
 			};
 
 			switch (method) {
@@ -379,7 +382,7 @@ const PlaceOrder = () => {
 								<p>Subtotal:</p>
 								<p>
 									{currency}
-									{getCartAmount()}
+									{cartAmount}
 								</p>
 							</div>
 							<div className="flex justify-between mb-2">
@@ -393,7 +396,7 @@ const PlaceOrder = () => {
 								<p>Total:</p>
 								<p>
 									{currency}
-									{getCartAmount() + delivery_fee}
+									{cartAmount + delivery_fee}
 								</p>
 							</div>
 						</div>
@@ -462,7 +465,7 @@ const PlaceOrder = () => {
 						<div className="bg-gray-50 p-4 rounded mb-6 text-left">
 							<p className="mb-2">
 								<strong>Total Amount:</strong> {currency}
-								{getCartAmount() + delivery_fee}
+								{cartAmount + delivery_fee}
 							</p>
 							<p className="mb-2">
 								<strong>Payment Method:</strong>{" "}

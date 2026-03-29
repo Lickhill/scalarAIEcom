@@ -7,7 +7,6 @@ export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
 	const currency = "₹";
-	const delivery_fee = 100;
 	const backendUrl =
 		import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
 	const [search, setSearch] = useState("");
@@ -16,6 +15,11 @@ const ShopContextProvider = (props) => {
 	const [products, setProducts] = useState([]);
 	const [token, setToken] = useState("");
 	const navigate = useNavigate();
+
+	// Calculate delivery fee based on cart amount
+	const getDeliveryFee = (cartAmount) => {
+		return cartAmount > 499 ? 0 : 100;
+	};
 
 	const addToCart = async (itemId, size) => {
 		if (!size) {
@@ -42,7 +46,7 @@ const ShopContextProvider = (props) => {
 				await axios.post(
 					backendUrl + "/api/cart/add",
 					{ itemId, size },
-					{ headers: { token } }
+					{ headers: { token } },
 				);
 			} catch (error) {
 				console.log(error);
@@ -76,7 +80,7 @@ const ShopContextProvider = (props) => {
 				await axios.post(
 					backendUrl + "/api/cart/update",
 					{ itemId, size, quantity },
-					{ headers: { token } }
+					{ headers: { token } },
 				);
 			} catch (error) {
 				console.log(error);
@@ -119,7 +123,7 @@ const ShopContextProvider = (props) => {
 			const response = await axios.post(
 				backendUrl + "/api/cart/get",
 				{},
-				{ headers: { token } }
+				{ headers: { token } },
 			);
 			if (response.data.success) {
 				setCartItems(response.data.cartData);
@@ -144,7 +148,7 @@ const ShopContextProvider = (props) => {
 	const value = {
 		products,
 		currency,
-		delivery_fee,
+		getDeliveryFee,
 		search,
 		setSearch,
 		showSearch,
