@@ -1,13 +1,8 @@
-import nodemailer from "nodemailer";
+import axios from "axios";
 
-// Create transporter using Gmail
-const transporter = nodemailer.createTransport({
-	service: "gmail",
-	auth: {
-		user: process.env.EMAIL_USER,
-		pass: process.env.EMAIL_PASSWORD,
-	},
-});
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
+const FROM_EMAIL = process.env.EMAIL_FROM || "noreply@lickhill.com";
+const FROM_NAME = "LickHill Store";
 
 // Function to send order confirmation email
 const sendOrderConfirmationEmail = async (email, orderDetails) => {
@@ -46,7 +41,7 @@ const sendOrderConfirmationEmail = async (email, orderDetails) => {
 			.join("");
 
 		const mailOptions = {
-			from: process.env.EMAIL_USER,
+			from: FROM_EMAIL,
 			to: email,
 			subject: "Order Confirmation - Scalar AI Ecom - LickHIll",
 			html: `
@@ -206,7 +201,34 @@ const sendOrderConfirmationEmail = async (email, orderDetails) => {
 			`,
 		};
 
-		await transporter.sendMail(mailOptions);
+		const result = await axios.post(
+			"https://api.brevo.com/v3/smtp/email",
+			{
+				sender: {
+					name: FROM_NAME,
+					email: FROM_EMAIL,
+				},
+				to: [
+					{
+						email: mailOptions.to,
+					},
+				],
+				subject: mailOptions.subject,
+				htmlContent: mailOptions.html,
+			},
+			{
+				headers: {
+					"api-key": BREVO_API_KEY,
+					"Content-Type": "application/json",
+				},
+			},
+		);
+
+		if (!result.data?.messageId) {
+			console.error("Error sending email:", result.data);
+			return false;
+		}
+
 		console.log("Order confirmation email sent to:", email);
 		return true;
 	} catch (error) {
